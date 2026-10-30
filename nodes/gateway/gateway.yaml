@@ -1,18 +1,17 @@
-# Bluetooth-Gateway
-# Board: Seeed Studio XIAO ESP32-C6, Speisung über USB-C, keine weitere Hardware.
+# Bluetooth-Gateway, gemeinsamer Baustein für alle Gateways
+# Board: Seeed Studio XIAO ESP32-C6, Speisung über USB-C, externe Antenne.
 # Leitet BLE-Geräte als Bluetooth-Proxy an Home Assistant weiter.
+#
+# Wird nicht direkt geflasht, sondern von einer Instanzdatei pro Gateway
+# eingebunden (siehe instanzen/). Liegt im Add-on als common/bt-gateway.yaml.
+# Die Instanzdatei liefert Name, API-Schlüssel und Fallback-Hotspot.
 
 substitutions:
-  name: bt-gateway
-  friendly_name: Bluetooth Gateway
   # ESP32-C6: Diagnose-Grenzwerte des common-Packages überschreiben (viel RAM)
   diag_min_heap_ok: "80000"
   diag_min_heap_critical: "40000"
-
-# Gemeinsames Diagnose-Package (Original im Repo esphome_apps). Liegt im
-# Add-on-Verzeichnis unter common/, Pfad relativ zu dieser Datei.
-packages:
-  diagnostics: !include common/diagnostics.yaml
+  # Vorgabe, falls die Instanzdatei nichts angibt: extern oder intern
+  antenne: extern
 
 esphome:
   name: ${name}
@@ -29,22 +28,14 @@ esp32:
 
 logger:
 
-api:
-  encryption:
-    key: !secret bt_gateway_api_key
-
 ota:
   - platform: esphome
-    # Ohne eigenen Schlüssel: verwendet den API-Schlüssel
+    # Ohne eigenen Schlüssel: verwendet den API-Schlüssel der Instanz
     encryption:
 
 wifi:
   ssid: !secret wifi_ssid
   password: !secret wifi_password
-  # Fallback-Hotspot, falls die WLAN-Verbindung fehlschlägt
-  ap:
-    ssid: !secret bt_gateway_fallback_ap_ssid
-    password: !secret bt_gateway_fallback_ap_password
 
 captive_portal:
 
@@ -55,9 +46,9 @@ esp32_ble_tracker:
 bluetooth_proxy:
   active: true
 
-# Antennenwahl des XIAO ESP32-C6, fest auf die externe Antenne (U.FL).
+# Antennenwahl des XIAO ESP32-C6. Welche Antenne gilt, legt die Instanzdatei
+# mit der Substitution "antenne" fest: extern (U.FL) oder intern (Keramik).
 # Die Pins werden beim Start gesetzt, noch bevor WLAN und Bluetooth anlaufen.
-# Für die eingebaute Keramikantenne GPIO14 auf ALWAYS_OFF stellen.
 switch:
   - platform: gpio
     id: rf_switch_enable
@@ -67,5 +58,7 @@ switch:
   - platform: gpio
     id: antenna_select
     pin: GPIO14
-    restore_mode: ALWAYS_ON  # HIGH: externe Antenne, LOW: eingebaute Antenne
+    # HIGH: externe Antenne, LOW: eingebaute Antenne. Ein anderer Wert als
+    # extern/intern ergibt einen ungültigen restore_mode und fällt beim Prüfen auf.
+    restore_mode: "${ {'extern': 'ALWAYS_ON', 'intern': 'ALWAYS_OFF'}.get(antenne, 'antenne_muss_extern_oder_intern_sein') }"
     internal: true

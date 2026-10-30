@@ -18,6 +18,11 @@ nodes/<knoten>/
 
 Gemeinsame Bausteine kommen aus `shared/esphome/` über `packages:`.
 
+Gibt es von einem Knoten mehrere gleich gebaute Geräte (z. B. Gateways pro
+Stockwerk), ist `<knoten>.yaml` der gemeinsame Baustein. Pro Gerät liegt dann
+eine kurze Instanzdatei unter `instanzen/` mit Name, Schlüsseln und
+gerätespezifischen Einstellungen, die den Baustein über `packages:` einbindet.
+
 ## Zugangsdaten
 
 Echte Werte (WLAN, API-Schlüssel) stehen nur in `secrets.yaml`.

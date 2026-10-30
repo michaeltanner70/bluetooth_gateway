@@ -6,7 +6,22 @@ Alle Änderungen an diesem Knoten. Aufbau nach
 
 ## [Unveröffentlicht]
 
+### Hinzugefügt
+
+- Mehrere Gateways gleicher Bauart: `gateway.yaml` ist jetzt der gemeinsame
+  Baustein (im Add-on `common/bt-gateway.yaml`), pro Gateway gibt es eine
+  Instanzdatei unter `instanzen/` mit Name, Antenne und Schlüsseln.
+- Antennenwahl pro Gateway über die Substitution `antenne` (`extern` oder
+  `intern`). Ein ungültiger Wert lässt die Prüfung abbrechen.
+
 ### Geändert
+
+- Gerätename `bt-gateway-<id>` mit den letzten 5 Stellen der WLAN-MAC. Der
+  bestehende Gateway heisst jetzt `bt-gateway-47b10`. In Home Assistant bleiben
+  Integration und Entitäts-IDs erhalten.
+- Secrets pro Gateway: `bt_gateway_<id>_api_key`,
+  `bt_gateway_<id>_fallback_ap_ssid`, `bt_gateway_<id>_fallback_ap_password`
+  statt `bt_gateway_*`.
 
 - Antennenwahl fest gesetzt statt dem Startzustand überlassen: GPIO3 LOW
   (HF-Schalter ein), GPIO14 HIGH (externe Antenne am U.FL-Anschluss). Beide

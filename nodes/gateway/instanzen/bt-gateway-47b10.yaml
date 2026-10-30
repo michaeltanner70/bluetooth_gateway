@@ -1,0 +1,25 @@
+# Bluetooth-Gateway 47b10 (WLAN-MAC <MAC>)
+# Name = "bt-gateway-" + die letzten 5 Stellen der WLAN-MAC.
+# Liegt im Add-on als bt-gateway-47b10.yaml, Pfade relativ dazu.
+
+substitutions:
+  name: bt-gateway-47b10
+  friendly_name: Bluetooth Gateway 47b10
+  # Antennenwahl: extern (U.FL-Anschluss) oder intern (Keramikantenne)
+  antenne: extern
+
+# Reihenfolge zählt: spätere Packages überschreiben frühere. Der Gateway-
+# Baustein kommt nach dem Diagnose-Package, damit seine Heap-Grenzwerte gelten.
+packages:
+  diagnostics: !include common/diagnostics.yaml
+  gateway: !include common/bt-gateway.yaml
+
+api:
+  encryption:
+    key: !secret bt_gateway_47b10_api_key
+
+wifi:
+  # Fallback-Hotspot, falls die WLAN-Verbindung fehlschlägt
+  ap:
+    ssid: !secret bt_gateway_47b10_fallback_ap_ssid
+    password: !secret bt_gateway_47b10_fallback_ap_password
