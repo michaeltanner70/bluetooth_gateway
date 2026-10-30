@@ -1,6 +1,6 @@
 # gateway
 
-**Version:** 0.2.0 · Änderungen: [CHANGELOG.md](CHANGELOG.md)
+**Version:** 0.3.0 · Änderungen: [CHANGELOG.md](CHANGELOG.md)
 
 ESPHome-Knoten. Minimalistischer Bluetooth-Gateway: empfängt BLE-Geräte in der
 Umgebung und leitet sie als Bluetooth-Proxy an Home Assistant weiter.

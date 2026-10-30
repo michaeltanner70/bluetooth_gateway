@@ -6,6 +6,11 @@ Alle Änderungen an diesem Knoten. Aufbau nach
 
 ## [Unveröffentlicht]
 
+## [0.3.0] – 2026-10-30
+
+Ausgelegt für mehrere Gateways, Antennenwahl fest gesetzt. Secret-Namen
+geändert: bestehende `secrets.yaml` müssen angepasst werden.
+
 ### Hinzugefügt
 
 - Mehrere Gateways gleicher Bauart: `gateway.yaml` ist jetzt der gemeinsame
@@ -22,7 +27,6 @@ Alle Änderungen an diesem Knoten. Aufbau nach
 - Secrets pro Gateway: `bt_gateway_<id>_api_key`,
   `bt_gateway_<id>_fallback_ap_ssid`, `bt_gateway_<id>_fallback_ap_password`
   statt `bt_gateway_*`.
-
 - Antennenwahl fest gesetzt statt dem Startzustand überlassen: GPIO3 LOW
   (HF-Schalter ein), GPIO14 HIGH (externe Antenne am U.FL-Anschluss). Beide
   als interne GPIO-Schalter. Der WLAN-Pegel stieg dadurch am selben Standort
