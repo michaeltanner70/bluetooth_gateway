@@ -1,0 +1,25 @@
+# Bluetooth-Gateway a8fc4 (WLAN-MAC <MAC>)
+# Name = "bt-gateway-" + die letzten 5 Stellen der WLAN-MAC.
+# Liegt im Add-on als bt-gateway-a8fc4.yaml, Pfade relativ dazu.
+
+substitutions:
+  name: bt-gateway-a8fc4
+  friendly_name: Bluetooth Gateway a8fc4
+  # Antennenwahl: extern (U.FL-Anschluss) oder intern (Keramikantenne)
+  antenne: intern
+
+# Reihenfolge zählt: spätere Packages überschreiben frühere. Der Gateway-
+# Baustein kommt nach dem Diagnose-Package, damit seine Heap-Grenzwerte gelten.
+packages:
+  diagnostics: !include common/diagnostics.yaml
+  gateway: !include common/bt-gateway.yaml
+
+api:
+  encryption:
+    key: !secret bt_gateway_a8fc4_api_key
+
+wifi:
+  # Fallback-Hotspot, falls die WLAN-Verbindung fehlschlägt
+  ap:
+    ssid: !secret bt_gateway_a8fc4_fallback_ap_ssid
+    password: !secret bt_gateway_a8fc4_fallback_ap_password

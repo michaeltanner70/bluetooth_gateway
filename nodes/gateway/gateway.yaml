@@ -18,7 +18,7 @@ esphome:
   friendly_name: ${friendly_name}
   project:
     name: bluetooth_gateway.gateway
-    version: "0.3.0"
+    version: "1.0.0"
 
 esp32:
   board: seeed_xiao_esp32c6
@@ -62,3 +62,47 @@ switch:
     # extern/intern ergibt einen ungültigen restore_mode und fällt beim Prüfen auf.
     restore_mode: "${ {'extern': 'ALWAYS_ON', 'intern': 'ALWAYS_OFF'}.get(antenne, 'antenne_muss_extern_oder_intern_sein') }"
     internal: true
+
+# Gelbe Benutzer-LED des XIAO ESP32-C6 an GPIO15, leuchtet bei LOW.
+# GPIO15 ist ein Strapping-Pin. Das ist hier unkritisch, weil die LED den Pegel
+# beim Start nicht verändert.
+output:
+  - platform: gpio
+    id: status_led
+    pin:
+      number: GPIO15
+      inverted: true
+      ignore_strapping_warning: true
+
+light:
+  - platform: binary
+    id: status_led_light
+    output: status_led
+    restore_mode: ALWAYS_OFF
+    internal: true
+
+# Status-LED:
+# - WLAN oder Home Assistant (API) nicht verbunden: 0,5 s an, 0,5 s aus
+# - beides verbunden: jede Sekunde ein Blitz von 100 ms
+interval:
+  - interval: 500ms
+    then:
+      - if:
+          condition:
+            not:
+              and:
+                - wifi.connected:
+                - api.connected:
+          then:
+            - light.toggle: status_led_light
+  - interval: 1s
+    then:
+      - if:
+          condition:
+            and:
+              - wifi.connected:
+              - api.connected:
+          then:
+            - light.turn_on: status_led_light
+            - delay: 100ms
+            - light.turn_off: status_led_light

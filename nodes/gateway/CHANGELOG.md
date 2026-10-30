@@ -6,6 +6,25 @@ Alle Änderungen an diesem Knoten. Aufbau nach
 
 ## [Unveröffentlicht]
 
+## [1.0.0] – 2026-10-31
+
+Erste stabile Version. Zwei Gateways laufen parallel in Home Assistant
+(`bt-gateway-47b10` mit externer, `bt-gateway-a8fc4` mit eingebauter Antenne).
+Ab hier gilt die MAJOR-Version nach [projekt.md](../../projekt.md) als Stand
+des Gesamtsystems.
+
+### Hinzugefügt
+
+- Zweiter Gateway `bt-gateway-a8fc4` (WLAN-MAC <MAC>) mit
+  eingebauter Antenne, Instanzdatei `instanzen/bt-gateway-a8fc4.yaml`.
+- README: Schritt-für-Schritt-Anleitung „Neuen Gateway hinzufügen“, so wie der
+  zweite Gateway angelegt wurde, mit Befehlen, Prüfpunkten und Stolpersteinen.
+- Status-LED (gelbe Benutzer-LED an GPIO15): blinkt 0,5 s an / 0,5 s aus,
+  solange WLAN oder Home Assistant (API) nicht verbunden sind. Sind beide
+  verbunden, blitzt sie jede Sekunde 100 ms. Eine Anzeige für empfangene
+  BLE-Pakete wurde getestet und wieder verworfen: Bei vielen Geräten in
+  Reichweite flackerte sie fast dauernd und sagte nichts aus.
+
 ## [0.3.0] – 2026-10-30
 
 Ausgelegt für mehrere Gateways, Antennenwahl fest gesetzt. Secret-Namen
