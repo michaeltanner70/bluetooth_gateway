@@ -6,6 +6,15 @@ Alle Änderungen an diesem Knoten. Aufbau nach
 
 ## [Unveröffentlicht]
 
+## [1.0.1] – 2026-10-31
+
+### Geändert
+
+- Firmware-Version als Substitution `fw_version` oben in `gateway.yaml`,
+  `esphome: project: version` übernimmt sie mit `${fw_version}`. Gleiches
+  Muster wie bei den anderen Geräten.
+- MAC-Adressen aus Doku und Kommentaren entfernt, auch aus dem Git-Verlauf.
+
 ## [1.0.0] – 2026-10-31
 
 Erste stabile Version. Zwei Gateways laufen parallel in Home Assistant

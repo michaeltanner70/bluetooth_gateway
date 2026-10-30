@@ -1,5 +1,5 @@
 # Bluetooth-Gateway, gemeinsamer Baustein für alle Gateways
-# Board: Seeed Studio XIAO ESP32-C6, Speisung über USB-C, externe Antenne.
+# Board: Seeed Studio XIAO ESP32-C6, Speisung über USB-C.
 # Leitet BLE-Geräte als Bluetooth-Proxy an Home Assistant weiter.
 #
 # Wird nicht direkt geflasht, sondern von einer Instanzdatei pro Gateway
@@ -7,6 +7,8 @@
 # Die Instanzdatei liefert Name, API-Schlüssel und Fallback-Hotspot.
 
 substitutions:
+  # Firmware-Version, gilt für alle Gateways (siehe CHANGELOG.md)
+  fw_version: "1.0.1"
   # ESP32-C6: Diagnose-Grenzwerte des common-Packages überschreiben (viel RAM)
   diag_min_heap_ok: "80000"
   diag_min_heap_critical: "40000"
@@ -18,7 +20,7 @@ esphome:
   friendly_name: ${friendly_name}
   project:
     name: bluetooth_gateway.gateway
-    version: "1.0.0"
+    version: "${fw_version}"
 
 esp32:
   board: seeed_xiao_esp32c6

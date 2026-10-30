@@ -80,7 +80,8 @@ Ein Knoten ohne diese beiden Dateien gilt als unvollständig. Der
   `1.0.0` starten alle Knoten gemeinsam.
 - Eine neue Version wird an allen Stellen zugleich nachgeführt:
   1. Version im `README.md` des Knotens
-  2. `version` unter `esphome: project:` in der Konfiguration
+  2. Substitution `fw_version` in der Konfiguration (`esphome: project:
+     version` übernimmt sie)
   3. neuer Abschnitt im `CHANGELOG.md` des Knotens
   4. Git-Tag in der Form `<knoten>/vMAJOR.MINOR.PATCH`, z. B. `gateway/v0.2.0`
 
