@@ -1,20 +1,29 @@
 # Bluetooth-Gateway
-# Board: vorläufig generisches ESP32 (esp32dev), Hardware noch offen.
+# Board: Seeed Studio XIAO ESP32-C6, Speisung über USB-C, keine weitere Hardware.
 # Leitet BLE-Geräte als Bluetooth-Proxy an Home Assistant weiter.
 
 substitutions:
   name: bt-gateway
   friendly_name: Bluetooth Gateway
+  # ESP32-C6: Diagnose-Grenzwerte des common-Packages überschreiben (viel RAM)
+  diag_min_heap_ok: "80000"
+  diag_min_heap_critical: "40000"
+
+# Gemeinsames Diagnose-Package (Original im Repo esphome_apps). Liegt im
+# Add-on-Verzeichnis unter common/, Pfad relativ zu dieser Datei.
+packages:
+  diagnostics: !include common/diagnostics.yaml
 
 esphome:
   name: ${name}
   friendly_name: ${friendly_name}
   project:
     name: bluetooth_gateway.gateway
-    version: "0.1.0"
+    version: "0.2.0"
 
 esp32:
-  board: esp32dev
+  board: seeed_xiao_esp32c6
+  variant: esp32c6
   framework:
     type: esp-idf
 
@@ -22,15 +31,22 @@ logger:
 
 api:
   encryption:
-    key: !secret api_key_gateway
+    key: !secret bt_gateway_api_key
 
 ota:
   - platform: esphome
-    password: !secret ota_password
+    # Ohne eigenen Schlüssel: verwendet den API-Schlüssel
+    encryption:
 
 wifi:
   ssid: !secret wifi_ssid
   password: !secret wifi_password
+  # Fallback-Hotspot, falls die WLAN-Verbindung fehlschlägt
+  ap:
+    ssid: !secret bt_gateway_fallback_ap_ssid
+    password: !secret bt_gateway_fallback_ap_password
+
+captive_portal:
 
 esp32_ble_tracker:
   scan_parameters:

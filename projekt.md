@@ -93,6 +93,6 @@ sich unter *Unveröffentlicht*, bis eine Version entsteht.
 
 ## Zugangsdaten
 
-Echte Werte (WLAN, API-Schlüssel, OTA-Passwort) stehen nur in gitignorierten
+Echte Werte (WLAN, API-Schlüssel) stehen nur in gitignorierten
 Dateien (`secrets.yaml`, `secrets.h`). Ins Repo kommt nur eine Vorlage mit
 Platzhaltern.

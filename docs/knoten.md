@@ -20,6 +20,6 @@ Gemeinsame Bausteine kommen aus `shared/esphome/` über `packages:`.
 
 ## Zugangsdaten
 
-Echte Werte (WLAN, API-Schlüssel, OTA-Passwort) stehen nur in `secrets.yaml`.
+Echte Werte (WLAN, API-Schlüssel) stehen nur in `secrets.yaml`.
 Der Name ist in `.gitignore` erfasst. Ins Repo geht nur eine Vorlage mit
 Platzhaltern.
