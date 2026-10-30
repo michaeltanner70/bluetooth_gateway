@@ -1,4 +1,4 @@
-# Bluetooth-Gateway a8fc4 (WLAN-MAC <MAC>)
+# Bluetooth-Gateway a8fc4
 # Name = "bt-gateway-" + die letzten 5 Stellen der WLAN-MAC.
 # Liegt im Add-on als bt-gateway-a8fc4.yaml, Pfade relativ dazu.
 

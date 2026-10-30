@@ -20,10 +20,13 @@ bt-gateway-<id> → Konfigurieren* zeigt die empfangenen BLE-Geräte
 
 ## Gateways
 
-| Gateway            | WLAN-MAC          | Antenne | Standort |
-|--------------------|-------------------|---------|----------|
-| `bt-gateway-47b10` | <MAC> | extern  | offen    |
-| `bt-gateway-a8fc4` | <MAC> | intern  | offen    |
+| Gateway            | Antenne | Standort |
+|--------------------|---------|----------|
+| `bt-gateway-47b10` | extern  | offen    |
+| `bt-gateway-a8fc4` | intern  | offen    |
+
+MAC-Adressen stehen bewusst nicht im Repo. Die vollständige MAC eines Gateways
+zeigt Home Assistant beim Gerät (Entität „3.1 Geräte MAC“).
 
 ## Aufbau der Konfiguration
 
@@ -33,7 +36,8 @@ bt-gateway-<id> → Konfigurieren* zeigt die empfangenen BLE-Geräte
 | `instanzen/bt-gateway-<id>.yaml`| `bt-gateway-<id>.yaml`     | pro Gateway: Name, Antenne, Schlüssel    |
 
 - **Name:** `bt-gateway-` plus die letzten 5 Stellen der WLAN-MAC, in
-  Kleinbuchstaben. Beispiel: MAC <MAC> ergibt `bt-gateway-47b10`.
+  Kleinbuchstaben. Beispiel mit erfundener MAC: AA:BB:CC:12:34:56 ergibt
+  `bt-gateway-23456`.
 - **Antenne:** Substitution `antenne` in der Instanzdatei, `extern` (U.FL) oder
   `intern` (Keramik). Ein anderer Wert lässt die Prüfung mit einer Meldung
   abbrechen.
@@ -125,11 +129,12 @@ werden kann, auch von einer neuen Claude-Sitzung.
    python -m esptool --port COM6 read-mac
    ```
 
-   Massgebend ist die Zeile `BASE MAC`, z. B. `<mac>`. Das ist die
-   WLAN-MAC.
+   Massgebend ist die Zeile `BASE MAC`. Das ist die WLAN-MAC.
 4. Die **`<id>`** bilden: die letzten 5 Zeichen der MAC ohne Doppelpunkte, in
-   Kleinbuchstaben. `<MAC>` → `<MAC ohne Doppelpunkte>` → **`a8fc4`**.
-   Gerätename: `bt-gateway-a8fc4`.
+   Kleinbuchstaben. Beispiel mit erfundener MAC: `AA:BB:CC:12:34:56` →
+   `AABBCC123456` → **`23456`**, Gerätename `bt-gateway-23456`.
+5. **Die MAC nirgends ins Repo schreiben**, weder in Dateien noch in Kommentare
+   oder Commit-Meldungen. Nur die `<id>` kommt ins Repo.
 
 ### Schritt 2: Instanzdatei anlegen
 
@@ -139,7 +144,7 @@ werden kann, auch von einer neuen Claude-Sitzung.
 
    | Stelle                         | neuer Wert                                   |
    |--------------------------------|----------------------------------------------|
-   | Kommentarzeile 1               | `# Bluetooth-Gateway <id> (WLAN-MAC <MAC>)`  |
+   | Kommentarzeile 1               | `# Bluetooth-Gateway <id>`                   |
    | Kommentar „Liegt im Add-on …“  | `bt-gateway-<id>.yaml`                       |
    | `name:`                        | `bt-gateway-<id>`                            |
    | `friendly_name:`               | `Bluetooth Gateway <id>`                     |

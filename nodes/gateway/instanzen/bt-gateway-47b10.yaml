@@ -1,4 +1,4 @@
-# Bluetooth-Gateway 47b10 (WLAN-MAC <MAC>)
+# Bluetooth-Gateway 47b10
 # Name = "bt-gateway-" + die letzten 5 Stellen der WLAN-MAC.
 # Liegt im Add-on als bt-gateway-47b10.yaml, Pfade relativ dazu.
 

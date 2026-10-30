@@ -15,8 +15,7 @@ des Gesamtsystems.
 
 ### Hinzugefügt
 
-- Zweiter Gateway `bt-gateway-a8fc4` (WLAN-MAC <MAC>) mit
-  eingebauter Antenne, Instanzdatei `instanzen/bt-gateway-a8fc4.yaml`.
+- Zweiter Gateway `bt-gateway-a8fc4` mit eingebauter Antenne, Instanzdatei `instanzen/bt-gateway-a8fc4.yaml`.
 - README: Schritt-für-Schritt-Anleitung „Neuen Gateway hinzufügen“, so wie der
   zweite Gateway angelegt wurde, mit Befehlen, Prüfpunkten und Stolpersteinen.
 - Status-LED (gelbe Benutzer-LED an GPIO15): blinkt 0,5 s an / 0,5 s aus,
