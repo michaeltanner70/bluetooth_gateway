@@ -1,0 +1,40 @@
+# Bluetooth-Gateway
+# Board: vorläufig generisches ESP32 (esp32dev), Hardware noch offen.
+# Leitet BLE-Geräte als Bluetooth-Proxy an Home Assistant weiter.
+
+substitutions:
+  name: bt-gateway
+  friendly_name: Bluetooth Gateway
+
+esphome:
+  name: ${name}
+  friendly_name: ${friendly_name}
+  project:
+    name: bluetooth_gateway.gateway
+    version: "0.1.0"
+
+esp32:
+  board: esp32dev
+  framework:
+    type: esp-idf
+
+logger:
+
+api:
+  encryption:
+    key: !secret api_key_gateway
+
+ota:
+  - platform: esphome
+    password: !secret ota_password
+
+wifi:
+  ssid: !secret wifi_ssid
+  password: !secret wifi_password
+
+esp32_ble_tracker:
+  scan_parameters:
+    active: true
+
+bluetooth_proxy:
+  active: true

@@ -1,0 +1,13 @@
+# Zugangsdaten und installationsspezifische Werte
+secrets.yaml
+secrets.h
+*.local.md
+
+# Build-Artefakte
+.esphome/
+.pio/
+.vscode/
+build/
+
+# macOS
+.DS_Store
