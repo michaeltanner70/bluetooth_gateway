@@ -6,6 +6,13 @@ Alle Änderungen an diesem Knoten. Aufbau nach
 
 ## [Unveröffentlicht]
 
+### Geändert
+
+- Antennenwahl fest gesetzt statt dem Startzustand überlassen: GPIO3 LOW
+  (HF-Schalter ein), GPIO14 HIGH (externe Antenne am U.FL-Anschluss). Beide
+  als interne GPIO-Schalter. Der WLAN-Pegel stieg dadurch am selben Standort
+  von -73…-79 dBm auf -52…-55 dBm, die eingebaute Antenne kam auf -54…-56 dBm.
+
 ## [0.2.0] – 2026-10-30
 
 Erster lauffähiger Stand auf der Zielhardware. Geflasht und in Home Assistant

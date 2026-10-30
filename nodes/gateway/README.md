@@ -22,14 +22,30 @@ Monitor) und die belegten Verbindungsplätze.
 |----------------|---------------------------------------------------|
 | Board          | Seeed Studio XIAO ESP32-C6 (`seeed_xiao_esp32c6`) |
 | Speisung       | USB-C, z. B. ein beliebiges USB-Netzteil          |
-| Antenne        | eingebaute Keramikantenne des Boards              |
-| Weitere Teile  | keine                                             |
+| Antenne        | externe Antenne am U.FL-Anschluss                 |
+| Weitere Teile  | keine ausser der Antenne                          |
 
 Es gibt keine Verdrahtung: Board ans USB-Netzteil, fertig.
 
-Das Board hat zusätzlich einen U.FL-Anschluss für eine externe Antenne. Er ist
-nicht in Gebrauch. Umgeschaltet würde über GPIO14 (Antennenwahl), GPIO3
-schaltet den HF-Schalter ein.
+Das Board hat eine eingebaute Keramikantenne und einen U.FL-Anschluss für eine
+externe Antenne. Verwendet wird die **externe Antenne**. Die Antennenwahl ist in
+`gateway.yaml` fest gesetzt:
+
+| Pin    | Pegel | Bedeutung                                       |
+|--------|-------|-------------------------------------------------|
+| GPIO3  | LOW   | HF-Schalter eingeschaltet                       |
+| GPIO14 | HIGH  | externe Antenne (LOW wäre die eingebaute)       |
+
+Für die eingebaute Antenne in `gateway.yaml` bei `antenna_select` den
+`restore_mode` auf `ALWAYS_OFF` stellen.
+
+Gemessen am selben Standort (WLAN-Pegel, gleicher Access Point):
+
+| Einstellung                     | Pegel           |
+|---------------------------------|-----------------|
+| Pins nicht gesetzt (bis 0.2.0)  | -73 bis -79 dBm |
+| eingebaute Antenne, fest        | -54 bis -56 dBm |
+| externe Antenne, fest           | -52 bis -55 dBm |
 
 ## Inbetriebnahme
 

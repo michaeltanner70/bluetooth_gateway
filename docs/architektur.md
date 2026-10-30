@@ -11,9 +11,9 @@ Gateway (XIAO ESP32-C6, ESPHome Bluetooth-Proxy) ──WLAN──► Home Assist
 
 ## Hardware
 
-Ein **Seeed Studio XIAO ESP32-C6**, sonst nichts: keine Platine, keine
-Zusatzteile, Speisung über USB-C. Der Gateway kann damit an jedem USB-Netzteil
-oder USB-Anschluss betrieben werden.
+Ein **Seeed Studio XIAO ESP32-C6** mit aufgesteckter externer Antenne (U.FL),
+sonst nichts: keine Platine, keine weiteren Teile, Speisung über USB-C. Der
+Gateway kann damit an jedem USB-Netzteil oder USB-Anschluss betrieben werden.
 
 ## Prinzip
 
@@ -42,8 +42,11 @@ wählt pro Gerät automatisch den Gateway mit dem besten Empfang.
   Pflanzensensoren).
 - **Framework `esp-idf`:** von ESPHome für den Bluetooth-Proxy empfohlen,
   braucht weniger Speicher als Arduino.
-- **Keine Zusatzhardware:** alles, was der Gateway braucht, ist auf dem
+- **Keine Zusatzhardware** ausser der Antenne: alles Übrige ist auf dem
   XIAO-Board. WLAN und Bluetooth teilen sich dabei Funkteil und Antenne,
   ESPHome regelt das über Software-Koexistenz.
+- **Antennenwahl fest setzen:** Der XIAO ESP32-C6 schaltet die Antenne über
+  GPIO3 und GPIO14. Bleiben die Pins offen, ist der Empfang rund 20 dB
+  schlechter.
 - **Standort:** zentral zwischen den BLE-Geräten und mit gutem WLAN-Empfang
   aufstellen, nicht in Metallgehäuse oder direkt neben den Router.

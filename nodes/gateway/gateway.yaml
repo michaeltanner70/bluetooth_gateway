@@ -54,3 +54,18 @@ esp32_ble_tracker:
 
 bluetooth_proxy:
   active: true
+
+# Antennenwahl des XIAO ESP32-C6, fest auf die externe Antenne (U.FL).
+# Die Pins werden beim Start gesetzt, noch bevor WLAN und Bluetooth anlaufen.
+# Für die eingebaute Keramikantenne GPIO14 auf ALWAYS_OFF stellen.
+switch:
+  - platform: gpio
+    id: rf_switch_enable
+    pin: GPIO3
+    restore_mode: ALWAYS_OFF  # LOW: HF-Schalter eingeschaltet
+    internal: true
+  - platform: gpio
+    id: antenna_select
+    pin: GPIO14
+    restore_mode: ALWAYS_ON  # HIGH: externe Antenne, LOW: eingebaute Antenne
+    internal: true
